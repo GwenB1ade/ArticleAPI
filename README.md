@@ -62,7 +62,7 @@ Before completing the description, I would like to mention the optimization aspe
 Download the project from GitHub:
 
 ```
-git clone !!!
+git clone https://github.com/GwenB1ade/ArticleAPI
 ```
 
 After that, we launch the Docker containers using the following command:
