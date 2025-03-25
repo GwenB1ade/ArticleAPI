@@ -114,13 +114,14 @@ pip3 install -r req.txt
 После загрузки проекта, запуска контейнеров и установки зависимостей можно запустить REST/GraphQL-приложение, используя следующую команду:
 
 ```
-python3 src/main.py run
+cd src
+python3 main.py run
 ```
 
 Если требуется запустить gRPC-приложение, используем эту команду:
 
 ```
-python3 src/main.py grpc
+python3 main.py grpc
 ```
 
 # API Testing
