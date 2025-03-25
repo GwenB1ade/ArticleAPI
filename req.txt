@@ -12,6 +12,7 @@ email-validator
 bcrypt
 PyJWT
 elasticsearch==7.17.12
+elastic_transport
 aiohttp
 mypy
 motor
