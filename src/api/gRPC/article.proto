@@ -1,0 +1,141 @@
+syntax = "proto3";
+
+package ArticleAPI;
+
+// API for creating, receiving, and searching for articles. Sending and reading comments, as well as responding to other people's comments. Put and remove likes. Get articles that you like. Article search by text
+
+service API {
+    // Creates a new article
+    rpc CreateArticle(CreateArticleRequest) returns (ArticleResponse) {}
+    // Get an article by UUID
+    rpc GetArticle(ArticleUUID) returns (ArticleResponse) {}
+    // Get all my articles
+    rpc GetMyArticles(GetMyArticlesRequest) returns (ArticlesResponse) {}
+    // Search for articles by text. The search takes place by the title, by the body of the article and by the names of the authors.
+    rpc SearchArticle(SearchArticleRequest) returns (ArticlesDocsResponse) {}
+    // Like or remove a like on the article
+    rpc LikeArticle(LikeArticleRequest) returns (DetailResponse) {}
+    // Get liked articles
+    rpc GetLikedArticles(UserToken) returns (ArticlesResponse) {}
+    // Send a comment to the article
+    rpc SendComment(CreateCommentRequest) returns (DetailResponse) {}
+    // Get article comments
+    rpc GetComments(ArticleUUID) returns (CommentsResponse) {}
+    // Reply to a comment
+    rpc CreateAnswer(CreateAnswerRequest) returns (DetailResponse) {}
+}
+
+// Detailed response. The response contains only the "detail" field containing the response.
+message DetailResponse {
+    // Text response
+    string detail = 1; 
+}
+
+// request to create an article
+message CreateArticleRequest {
+    // This is a token confirming the user
+    string token = 1;
+    // Article title
+    string title = 2;
+    // The body of the article
+    string body = 3;
+}
+
+// Public user data
+message UserData {
+    // User's UUID
+    string user_uuid = 1;
+    // Username
+    string username = 2;
+}
+
+// Article Response
+message ArticleResponse {
+    // The UUID of the article
+    string uuid = 1;
+    // Article title
+    string title = 2;
+    // The body of the article
+    string body = 3;
+    // Number of likes
+    int32 likes = 4;
+    // User data
+    UserData userdata = 5;
+}
+
+
+message ArticleDocumentResponse {
+    string uuid = 1;
+    string title = 2;
+    string body = 3;
+    string author_username = 4;
+}
+
+message ArticlesDocsResponse {
+    repeated ArticleDocumentResponse articles = 1;
+}
+
+
+// Article UUID
+message ArticleUUID {
+    // Article UUID
+    string article_uuid = 1;
+}
+
+// User token
+message UserToken {
+    // This is a token confirming the user
+    string user_token = 1;
+}
+
+message LikeArticleRequest {
+    ArticleUUID article_uuid = 1;
+    UserToken user_token = 2;
+}
+
+message GetMyArticlesRequest {
+    string token = 1;
+}
+
+message ArticlesResponse {
+    repeated ArticleResponse articles = 1;
+}
+
+message SearchArticleRequest {
+    string text = 1;
+}
+
+message Answer {
+    string uuid = 1;
+    string body = 2;
+    string author_username = 3;
+    string author_uuid = 4;
+    string comment_uuid = 5;
+}
+
+message CreateAnswerRequest {
+    string comment_uuid = 1;
+    UserToken user_token = 2;
+    string body = 3;
+}
+
+message CreateCommentRequest {
+    ArticleUUID article_uuid = 1;
+    UserToken user_token = 2;
+    string body = 3;
+}
+
+message CommentResponse {
+    string uuid = 1;
+    string body = 2;
+    string author_username = 3;
+    string author_uuid = 4;
+    string article_uuid = 5;
+    repeated Answer answers = 6;
+}
+
+message CommentsResponse {
+    repeated CommentResponse comments = 1;
+}
+
+// python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. article.proto

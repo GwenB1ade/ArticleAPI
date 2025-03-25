@@ -1,0 +1,59 @@
+version: "3"
+name: article
+
+services:
+  postgresql-article:
+    container_name: 'postgresql-article'
+    ports:
+      - '${DB_PORT}:5432'
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_USER=${DB_USER}
+
+    image: postgres:13.14-alpine3.19
+  
+  redis-cache-article:
+    container_name: 'redis-cache'
+    ports:
+      - "${REDIS_PORT}:6379"
+    
+    image: redis:alpine3.19
+
+  
+  elasticsearch-article:
+    image: elasticsearch:7.17.22
+    container_name: 'elasticsearch-article'
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ELASTIC_USERNAME=${ELASTIC_USERNAME}
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - esdata-article:/usr/share/elasticsearch/data
+
+  mongodb-article:
+    image: mongo:latest
+    container_name: mongodb-article
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+    volumes:
+      - mongo_data:/data/db
+
+
+
+volumes:
+  mongo_data:
+    driver: local
+  esdata-article:
+    driver: local
+
+  
+
+
+  
