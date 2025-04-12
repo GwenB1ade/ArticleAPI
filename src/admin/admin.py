@@ -9,23 +9,15 @@ from .auth import UsernameAndPasswordProvider
 
 import models
 
-admin = Admin(
-    engine,
-    auth_provider = UsernameAndPasswordProvider()
-)
+admin = Admin(engine, auth_provider=UsernameAndPasswordProvider())
+
 
 class UserView(ModelView):
-    fields = ['uuid', 'articles', 'likes', 'username', 'email']
+    fields = ["uuid", "articles", "likes", "username", "email"]
 
 
-admin.add_view(
-    ModelView(models.ArticleModel, name = 'Articles')
-)
+admin.add_view(ModelView(models.ArticleModel, name="Articles"))
 
-admin.add_view(
-    UserView(models.UserModel, name = 'Users')
-)
+admin.add_view(UserView(models.UserModel, name="Users"))
 
-admin.add_view(
-    ModelView(models.LikeModel, name = 'Likes')
-)
+admin.add_view(ModelView(models.LikeModel, name="Likes"))

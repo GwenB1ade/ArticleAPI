@@ -8,25 +8,19 @@ from .resolvers import (
     CommentQuery,
     CommentMutation,
     UserQuery,
-    UserMutation
+    UserMutation,
 )
 
-@strawberry.type
-class Query(
-    ArticleQuery,
-    CommentQuery,
-    UserQuery
-):
-    pass
 
 @strawberry.type
-class Mutation(
-    ArticleMutation,
-    CommentMutation,
-    UserMutation
-):
+class Query(ArticleQuery, CommentQuery, UserQuery):
     pass
 
 
-schema = strawberry.Schema(query = Query, mutation = Mutation)
-router = strawberry.fastapi.GraphQLRouter(schema, prefix = '/graphql')
+@strawberry.type
+class Mutation(ArticleMutation, CommentMutation, UserMutation):
+    pass
+
+
+schema = strawberry.Schema(query=Query, mutation=Mutation)
+router = strawberry.fastapi.GraphQLRouter(schema, prefix="/graphql")

@@ -3,11 +3,11 @@ from starlette.responses import Response
 from starlette_admin.auth import AdminConfig, AdminUser, AuthProvider
 from starlette_admin.exceptions import FormValidationError, LoginFailed
 
-ADMIN_USERNAME = 'admin'
-ADMIN_PASSWORD = 'root'
+ADMIN_USERNAME = "admin"
+ADMIN_PASSWORD = "root"
 
 ADMIN_DATA = {
-    'name': 'Admin',
+    "name": "Admin",
 }
 
 users = {
@@ -19,7 +19,7 @@ users = {
     },
     "johndoe": {
         "name": "John Doe",
-        "avatar": None, # user avatar is optional
+        "avatar": None,  # user avatar is optional
         "roles": ["read", "create", "edit", "action_make_published"],
     },
     "viewer": {"name": "Viewer", "avatar": "guest.png", "roles": ["read"]},
@@ -68,7 +68,7 @@ class UsernameAndPasswordProvider(AuthProvider):
         return AdminConfig()
 
     def get_admin_user(self, request: Request) -> AdminUser:
-        return AdminUser(username=request.session.get('username'))
+        return AdminUser(username=request.session['username'])
 
     async def logout(self, request: Request, response: Response) -> Response:
         request.session.clear()

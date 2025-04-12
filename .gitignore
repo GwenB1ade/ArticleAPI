@@ -1,4 +1,7 @@
 .venv
 .env
 /src/migrations
-web/
+.idea
+.vscode
+.ropeproject
+tests/

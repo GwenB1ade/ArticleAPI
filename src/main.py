@@ -6,7 +6,8 @@ from starlette.middleware.sessions import SessionMiddleware
 import uvicorn
 import asyncio
 
-from database import async_session_creater
+from database import async_session_creater, create_db, drop_db
+from rich.console import Console
 
 
 
@@ -14,21 +15,22 @@ import exceptions
 from config import settings
 
 # from utils.mongodb.connect import ping
+from utils.limiter_api import limiter, RateLimitExceeded, _rate_limit_exceeded_handler
+from utils.elasticsearch.article_search import AsyncArticleSearch
 
 from api.gRPC.server import serve
 
 
-app = FastAPI(
-    title = 'Article API',
-    version = '0.0.1',
-    root_path = '/api/v1'
-)
+app = FastAPI(title="Article API", version="0.0.1", root_path="/api/v1")
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 admin.mount_to(app)
 
-@app.get('/', include_in_schema = False)
+
+@app.get("/", include_in_schema=False)
 async def redirect_to_docs():
-    return RedirectResponse('/docs')
+    return RedirectResponse("/docs")
 
 
 # Middlewares
@@ -40,12 +42,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.add_middleware(SessionMiddleware, secret_key = settings.SESSION_SECRET)
-
+app.add_middleware(SessionMiddleware, secret_key=settings.SESSION_SECRET)
 
 
 # Exceptions
-app.add_exception_handler(status.HTTP_500_INTERNAL_SERVER_ERROR, exceptions.exception_500)
+app.add_exception_handler(
+    status.HTTP_500_INTERNAL_SERVER_ERROR, exceptions.exception_500
+)
 app.add_exception_handler(HTTPException, exceptions.exception_http)
 
 
@@ -78,20 +81,39 @@ import typer
 
 cli = typer.Typer()
 
+
 @cli.command()
-def run():
+def run(https: bool = False):
     """Запускает основное FastAPI приложение с поддержкой GraphQL"""
-    uvicorn.run('main:app', reload = True)
-    
+    create_db()
+    if https:
+        uvicorn.run(
+            "main:app",
+            reload=True,
+            ssl_keyfile="../key.pem",
+            ssl_certfile="../cert.pem",
+        )
+    else:
+        uvicorn.run("main:app", reload=True)
+
 
 @cli.command()
 def grpc():
     """Запускает gRPC приложение"""
     # UI = grpcui -proto article.proto -plaintext localhost:50051
     asyncio.run(serve())
-
-
-
-if __name__ == "__main__":  
-    cli()
     
+
+@cli.command()
+def drop():
+    console = Console()
+    asyncio.run(AsyncArticleSearch.drop_elastic())
+    drop_db()
+    
+    console.print(f'[green]INFO[/green]: The Postgresql and ElasticSearch databases have been reset')
+    
+    
+
+
+if __name__ == "__main__":
+    cli()

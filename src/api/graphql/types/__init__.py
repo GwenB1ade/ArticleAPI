@@ -5,6 +5,7 @@ from .comment_types import CommentReplyType, CommentType
 
 from strawberry import type
 
+
 @type
 class DetailResponseType:
     detail: str

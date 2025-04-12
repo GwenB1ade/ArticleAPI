@@ -5,23 +5,26 @@ import warnings
 
 from . import article_pb2 as article__pb2
 
-GRPC_GENERATED_VERSION = '1.71.0'
+GRPC_GENERATED_VERSION = "1.71.0"
 GRPC_VERSION = grpc.__version__
 _version_not_supported = False
 
 try:
     from grpc._utilities import first_version_is_lower
-    _version_not_supported = first_version_is_lower(GRPC_VERSION, GRPC_GENERATED_VERSION)
+
+    _version_not_supported = first_version_is_lower(
+        GRPC_VERSION, GRPC_GENERATED_VERSION
+    )
 except ImportError:
     _version_not_supported = True
 
 if _version_not_supported:
     raise RuntimeError(
-        f'The grpc package installed is at version {GRPC_VERSION},'
-        + f' but the generated code in article_pb2_grpc.py depends on'
-        + f' grpcio>={GRPC_GENERATED_VERSION}.'
-        + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
-        + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
+        f"The grpc package installed is at version {GRPC_VERSION},"
+        + f" but the generated code in article_pb2_grpc.py depends on"
+        + f" grpcio>={GRPC_GENERATED_VERSION}."
+        + f" Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}"
+        + f" or downgrade your generated code using grpcio-tools<={GRPC_VERSION}."
     )
 
 
@@ -35,50 +38,59 @@ class APIStub(object):
             channel: A grpc.Channel.
         """
         self.CreateArticle = channel.unary_unary(
-                '/ArticleAPI.API/CreateArticle',
-                request_serializer=article__pb2.CreateArticleRequest.SerializeToString,
-                response_deserializer=article__pb2.ArticleResponse.FromString,
-                _registered_method=True)
+            "/ArticleAPI.API/CreateArticle",
+            request_serializer=article__pb2.CreateArticleRequest.SerializeToString,
+            response_deserializer=article__pb2.ArticleResponse.FromString,
+            _registered_method=True,
+        )
         self.GetArticle = channel.unary_unary(
-                '/ArticleAPI.API/GetArticle',
-                request_serializer=article__pb2.ArticleUUID.SerializeToString,
-                response_deserializer=article__pb2.ArticleResponse.FromString,
-                _registered_method=True)
+            "/ArticleAPI.API/GetArticle",
+            request_serializer=article__pb2.ArticleUUID.SerializeToString,
+            response_deserializer=article__pb2.ArticleResponse.FromString,
+            _registered_method=True,
+        )
         self.GetMyArticles = channel.unary_unary(
-                '/ArticleAPI.API/GetMyArticles',
-                request_serializer=article__pb2.GetMyArticlesRequest.SerializeToString,
-                response_deserializer=article__pb2.ArticlesResponse.FromString,
-                _registered_method=True)
+            "/ArticleAPI.API/GetMyArticles",
+            request_serializer=article__pb2.GetMyArticlesRequest.SerializeToString,
+            response_deserializer=article__pb2.ArticlesResponse.FromString,
+            _registered_method=True,
+        )
         self.SearchArticle = channel.unary_unary(
-                '/ArticleAPI.API/SearchArticle',
-                request_serializer=article__pb2.SearchArticleRequest.SerializeToString,
-                response_deserializer=article__pb2.ArticlesDocsResponse.FromString,
-                _registered_method=True)
+            "/ArticleAPI.API/SearchArticle",
+            request_serializer=article__pb2.SearchArticleRequest.SerializeToString,
+            response_deserializer=article__pb2.ArticlesDocsResponse.FromString,
+            _registered_method=True,
+        )
         self.LikeArticle = channel.unary_unary(
-                '/ArticleAPI.API/LikeArticle',
-                request_serializer=article__pb2.LikeArticleRequest.SerializeToString,
-                response_deserializer=article__pb2.DetailResponse.FromString,
-                _registered_method=True)
+            "/ArticleAPI.API/LikeArticle",
+            request_serializer=article__pb2.LikeArticleRequest.SerializeToString,
+            response_deserializer=article__pb2.DetailResponse.FromString,
+            _registered_method=True,
+        )
         self.GetLikedArticles = channel.unary_unary(
-                '/ArticleAPI.API/GetLikedArticles',
-                request_serializer=article__pb2.UserToken.SerializeToString,
-                response_deserializer=article__pb2.ArticlesResponse.FromString,
-                _registered_method=True)
+            "/ArticleAPI.API/GetLikedArticles",
+            request_serializer=article__pb2.UserToken.SerializeToString,
+            response_deserializer=article__pb2.ArticlesResponse.FromString,
+            _registered_method=True,
+        )
         self.SendComment = channel.unary_unary(
-                '/ArticleAPI.API/SendComment',
-                request_serializer=article__pb2.CreateCommentRequest.SerializeToString,
-                response_deserializer=article__pb2.DetailResponse.FromString,
-                _registered_method=True)
+            "/ArticleAPI.API/SendComment",
+            request_serializer=article__pb2.CreateCommentRequest.SerializeToString,
+            response_deserializer=article__pb2.DetailResponse.FromString,
+            _registered_method=True,
+        )
         self.GetComments = channel.unary_unary(
-                '/ArticleAPI.API/GetComments',
-                request_serializer=article__pb2.ArticleUUID.SerializeToString,
-                response_deserializer=article__pb2.CommentsResponse.FromString,
-                _registered_method=True)
+            "/ArticleAPI.API/GetComments",
+            request_serializer=article__pb2.ArticleUUID.SerializeToString,
+            response_deserializer=article__pb2.CommentsResponse.FromString,
+            _registered_method=True,
+        )
         self.CreateAnswer = channel.unary_unary(
-                '/ArticleAPI.API/CreateAnswer',
-                request_serializer=article__pb2.CreateAnswerRequest.SerializeToString,
-                response_deserializer=article__pb2.DetailResponse.FromString,
-                _registered_method=True)
+            "/ArticleAPI.API/CreateAnswer",
+            request_serializer=article__pb2.CreateAnswerRequest.SerializeToString,
+            response_deserializer=article__pb2.DetailResponse.FromString,
+            _registered_method=True,
+        )
 
 
 class APIServicer(object):
@@ -87,131 +99,134 @@ class APIServicer(object):
     def CreateArticle(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def GetArticle(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def GetMyArticles(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def SearchArticle(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def LikeArticle(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def GetLikedArticles(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def SendComment(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def GetComments(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
     def CreateAnswer(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
 
 def add_APIServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'CreateArticle': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreateArticle,
-                    request_deserializer=article__pb2.CreateArticleRequest.FromString,
-                    response_serializer=article__pb2.ArticleResponse.SerializeToString,
-            ),
-            'GetArticle': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetArticle,
-                    request_deserializer=article__pb2.ArticleUUID.FromString,
-                    response_serializer=article__pb2.ArticleResponse.SerializeToString,
-            ),
-            'GetMyArticles': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetMyArticles,
-                    request_deserializer=article__pb2.GetMyArticlesRequest.FromString,
-                    response_serializer=article__pb2.ArticlesResponse.SerializeToString,
-            ),
-            'SearchArticle': grpc.unary_unary_rpc_method_handler(
-                    servicer.SearchArticle,
-                    request_deserializer=article__pb2.SearchArticleRequest.FromString,
-                    response_serializer=article__pb2.ArticlesDocsResponse.SerializeToString,
-            ),
-            'LikeArticle': grpc.unary_unary_rpc_method_handler(
-                    servicer.LikeArticle,
-                    request_deserializer=article__pb2.LikeArticleRequest.FromString,
-                    response_serializer=article__pb2.DetailResponse.SerializeToString,
-            ),
-            'GetLikedArticles': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetLikedArticles,
-                    request_deserializer=article__pb2.UserToken.FromString,
-                    response_serializer=article__pb2.ArticlesResponse.SerializeToString,
-            ),
-            'SendComment': grpc.unary_unary_rpc_method_handler(
-                    servicer.SendComment,
-                    request_deserializer=article__pb2.CreateCommentRequest.FromString,
-                    response_serializer=article__pb2.DetailResponse.SerializeToString,
-            ),
-            'GetComments': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetComments,
-                    request_deserializer=article__pb2.ArticleUUID.FromString,
-                    response_serializer=article__pb2.CommentsResponse.SerializeToString,
-            ),
-            'CreateAnswer': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreateAnswer,
-                    request_deserializer=article__pb2.CreateAnswerRequest.FromString,
-                    response_serializer=article__pb2.DetailResponse.SerializeToString,
-            ),
+        "CreateArticle": grpc.unary_unary_rpc_method_handler(
+            servicer.CreateArticle,
+            request_deserializer=article__pb2.CreateArticleRequest.FromString,
+            response_serializer=article__pb2.ArticleResponse.SerializeToString,
+        ),
+        "GetArticle": grpc.unary_unary_rpc_method_handler(
+            servicer.GetArticle,
+            request_deserializer=article__pb2.ArticleUUID.FromString,
+            response_serializer=article__pb2.ArticleResponse.SerializeToString,
+        ),
+        "GetMyArticles": grpc.unary_unary_rpc_method_handler(
+            servicer.GetMyArticles,
+            request_deserializer=article__pb2.GetMyArticlesRequest.FromString,
+            response_serializer=article__pb2.ArticlesResponse.SerializeToString,
+        ),
+        "SearchArticle": grpc.unary_unary_rpc_method_handler(
+            servicer.SearchArticle,
+            request_deserializer=article__pb2.SearchArticleRequest.FromString,
+            response_serializer=article__pb2.ArticlesDocsResponse.SerializeToString,
+        ),
+        "LikeArticle": grpc.unary_unary_rpc_method_handler(
+            servicer.LikeArticle,
+            request_deserializer=article__pb2.LikeArticleRequest.FromString,
+            response_serializer=article__pb2.DetailResponse.SerializeToString,
+        ),
+        "GetLikedArticles": grpc.unary_unary_rpc_method_handler(
+            servicer.GetLikedArticles,
+            request_deserializer=article__pb2.UserToken.FromString,
+            response_serializer=article__pb2.ArticlesResponse.SerializeToString,
+        ),
+        "SendComment": grpc.unary_unary_rpc_method_handler(
+            servicer.SendComment,
+            request_deserializer=article__pb2.CreateCommentRequest.FromString,
+            response_serializer=article__pb2.DetailResponse.SerializeToString,
+        ),
+        "GetComments": grpc.unary_unary_rpc_method_handler(
+            servicer.GetComments,
+            request_deserializer=article__pb2.ArticleUUID.FromString,
+            response_serializer=article__pb2.CommentsResponse.SerializeToString,
+        ),
+        "CreateAnswer": grpc.unary_unary_rpc_method_handler(
+            servicer.CreateAnswer,
+            request_deserializer=article__pb2.CreateAnswerRequest.FromString,
+            response_serializer=article__pb2.DetailResponse.SerializeToString,
+        ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'ArticleAPI.API', rpc_method_handlers)
+        "ArticleAPI.API", rpc_method_handlers
+    )
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('ArticleAPI.API', rpc_method_handlers)
+    server.add_registered_method_handlers("ArticleAPI.API", rpc_method_handlers)
 
 
- # This class is part of an EXPERIMENTAL API.
+# This class is part of an EXPERIMENTAL API.
 class API(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def CreateArticle(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def CreateArticle(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/ArticleAPI.API/CreateArticle',
+            "/ArticleAPI.API/CreateArticle",
             article__pb2.CreateArticleRequest.SerializeToString,
             article__pb2.ArticleResponse.FromString,
             options,
@@ -222,23 +237,26 @@ class API(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def GetArticle(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def GetArticle(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/ArticleAPI.API/GetArticle',
+            "/ArticleAPI.API/GetArticle",
             article__pb2.ArticleUUID.SerializeToString,
             article__pb2.ArticleResponse.FromString,
             options,
@@ -249,23 +267,26 @@ class API(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def GetMyArticles(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def GetMyArticles(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/ArticleAPI.API/GetMyArticles',
+            "/ArticleAPI.API/GetMyArticles",
             article__pb2.GetMyArticlesRequest.SerializeToString,
             article__pb2.ArticlesResponse.FromString,
             options,
@@ -276,23 +297,26 @@ class API(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def SearchArticle(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def SearchArticle(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/ArticleAPI.API/SearchArticle',
+            "/ArticleAPI.API/SearchArticle",
             article__pb2.SearchArticleRequest.SerializeToString,
             article__pb2.ArticlesDocsResponse.FromString,
             options,
@@ -303,23 +327,26 @@ class API(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def LikeArticle(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def LikeArticle(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/ArticleAPI.API/LikeArticle',
+            "/ArticleAPI.API/LikeArticle",
             article__pb2.LikeArticleRequest.SerializeToString,
             article__pb2.DetailResponse.FromString,
             options,
@@ -330,23 +357,26 @@ class API(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def GetLikedArticles(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def GetLikedArticles(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/ArticleAPI.API/GetLikedArticles',
+            "/ArticleAPI.API/GetLikedArticles",
             article__pb2.UserToken.SerializeToString,
             article__pb2.ArticlesResponse.FromString,
             options,
@@ -357,23 +387,26 @@ class API(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def SendComment(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def SendComment(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/ArticleAPI.API/SendComment',
+            "/ArticleAPI.API/SendComment",
             article__pb2.CreateCommentRequest.SerializeToString,
             article__pb2.DetailResponse.FromString,
             options,
@@ -384,23 +417,26 @@ class API(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def GetComments(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def GetComments(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/ArticleAPI.API/GetComments',
+            "/ArticleAPI.API/GetComments",
             article__pb2.ArticleUUID.SerializeToString,
             article__pb2.CommentsResponse.FromString,
             options,
@@ -411,23 +447,26 @@ class API(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )
 
     @staticmethod
-    def CreateAnswer(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def CreateAnswer(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/ArticleAPI.API/CreateAnswer',
+            "/ArticleAPI.API/CreateAnswer",
             article__pb2.CreateAnswerRequest.SerializeToString,
             article__pb2.DetailResponse.FromString,
             options,
@@ -438,4 +477,5 @@ class API(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )

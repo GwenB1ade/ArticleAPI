@@ -13,38 +13,34 @@ if TYPE_CHECKING:
 
 
 class UserModel(Base):
-    __tablename__ = 'User'
-    uuid: Mapped[str] = mapped_column(UUID(as_uuid = False), default = uuid.uuid4, primary_key = True)
-    username: Mapped[str]
+    __tablename__ = "User"
+    uuid: Mapped[str] = mapped_column(
+        UUID(as_uuid=False), default=uuid.uuid4, primary_key=True
+    )
+    username: Mapped[str] = mapped_column(unique = True)
     password: Mapped[str]
     email: Mapped[str]
-    
-    articles: Mapped[list['ArticleModel']] = relationship(
-        back_populates = 'author',
-        uselist = True
+
+    articles: Mapped[list["ArticleModel"]] = relationship(
+        back_populates="author", uselist=True
     )
-    
-    likes: Mapped[list['LikeModel']] = relationship(
-        back_populates = 'user_liked',
-        uselist = True
+
+    likes: Mapped[list["LikeModel"]] = relationship(
+        back_populates="user_liked", uselist=True
     )
-    
+
     def convert_to_schema(
-        self,
-        full: bool = False
+        self, full: bool = False
     ) -> Union[UserSchema, ViewUserSchema]:
         if full:
             schema = UserSchema(
-                uuid = str(self.uuid),
-                username = self.username,
-                password = self.password,
-                email = self.email
+                uuid=str(self.uuid),
+                username=self.username,
+                password=self.password,
+                email=self.email,
             )
-        
+
         else:
-            schema = ViewUserSchema(
-                uuid = str(self.uuid),
-                username = self.username
-            )
-        
+            schema = ViewUserSchema(uuid=str(self.uuid), username=self.username)
+
         return schema

@@ -62,7 +62,7 @@ Before completing the description, I would like to mention the optimization aspe
 Download the project from GitHub:
 
 ```
-git clone !!!
+git clone https://github.com/GwenB1ade/ArticleAPI
 ```
 
 After that, we launch the Docker containers using the following command:
@@ -76,25 +76,26 @@ Then we create a virtual environment and install all the necessary dependencies.
 ```
 python -m venv .venv
 . .venv/bin/activate
-pip3 install -r req.txt
+uv pip install -e .
+cd src
 ```
 
 After downloading the project, launching containers, and installing dependencies, you can launch the REST/GraphQL application using the following command:
 
 ```
-python3 src/main.py run
+uv run main.py run
 ```
 
 If you need to run a gRPC application, use this command:
 
 ```
-python3 src/main.py grpc
+uv run main.py grpc
 ```
 ---
 Скачиваем проект с GitHub:
 
 ```
-git clone !!!
+git clone https://github.com/GwenB1ade/ArticleAPI
 ```
 
 После этого запускаем Docker-контейнеры с помощью следующей команды:
@@ -108,19 +109,20 @@ docker-compose up --build
 ```
 python -m venv .venv
 . .venv/bin/activate
-pip3 install -r req.txt
+uv pip install -e .
+cd src
 ```
 
 После загрузки проекта, запуска контейнеров и установки зависимостей можно запустить REST/GraphQL-приложение, используя следующую команду:
 
 ```
-python3 src/main.py run
+uv run main.py run
 ```
 
 Если требуется запустить gRPC-приложение, используем эту команду:
 
 ```
-python3 src/main.py grpc
+uv run main.py grpc
 ```
 
 # API Testing
@@ -141,6 +143,19 @@ grpcui -proto src/api/gRPC/article.proto -plaintext localhost:50051
 ```
 
 Learn more about installing grpcui [here](https://github.com/fullstorydev/grpcui)
+
+# Launching the Streamlit app
+In order to run the Streamlit application, you need to navigate from the root directory to the web directory.
+
+```
+cd web
+```
+
+Now enter the command to launch the application:
+
+```
+uv run streamlit run main.py --server.runOnSave True
+```
 
 # In the future
 In the future, I would like to change/add the following:

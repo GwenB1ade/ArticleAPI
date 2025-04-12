@@ -5,7 +5,7 @@ import schemas
 from . import UserType
 
 
-@type(model = schemas.ArticleSchema)
+@type(model=schemas.ArticleSchema)
 class ArticleType:
     uuid: auto
     title: auto

@@ -26,5 +26,8 @@ grpcio-tools
 typer
 loguru
 mongoengine
+pytest
+pytest-asyncio
+httpx
 
 greenlet
