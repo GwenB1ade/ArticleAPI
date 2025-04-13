@@ -35,7 +35,7 @@ async def get_article_comments(article_uuid: str) -> ResponseCommentsList:
     """Получить комментарии статьи"""
     comments = await CommentsMongoService.get_comments(article_uuid=article_uuid)
 
-    return ResponseCommentsList(comments = comments)
+    return ResponseCommentsList(comments=comments)
 
 
 @router.post("/reply/{comment_uuid}")

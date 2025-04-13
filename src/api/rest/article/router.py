@@ -25,7 +25,7 @@ router = APIRouter(prefix="/articles", tags=["Articles"])
 
 
 @router.post("/")
-@limiter.limit('2/minute')
+@limiter.limit("2/minute")
 async def create_article(
     request: Request,
     active_user: active_user,
@@ -118,7 +118,7 @@ async def get_likes_articles(active_user: active_user) -> ResponseArticlesList:
 
 
 @router.post("/search", tags=["Search Articles"])
-@limiter.limit('4/minute')
+@limiter.limit("4/minute")
 async def search(request: Request, text: str) -> ResponseArticlesDocsList:
     """Поиск статьей по префиксу, совпадению, имени автора."""
     docs = await AsyncArticleSearch.search(text)

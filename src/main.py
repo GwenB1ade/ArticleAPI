@@ -10,7 +10,6 @@ from database import async_session_creater, create_db, drop_db
 from rich.console import Console
 
 
-
 import exceptions
 from config import settings
 
@@ -102,17 +101,17 @@ def grpc():
     """Запускает gRPC приложение"""
     # UI = grpcui -proto article.proto -plaintext localhost:50051
     asyncio.run(serve())
-    
+
 
 @cli.command()
 def drop():
     console = Console()
     asyncio.run(AsyncArticleSearch.drop_elastic())
     drop_db()
-    
-    console.print(f'[green]INFO[/green]: The Postgresql and ElasticSearch databases have been reset')
-    
-    
+
+    console.print(
+        f"[green]INFO[/green]: The Postgresql and ElasticSearch databases have been reset"
+    )
 
 
 if __name__ == "__main__":

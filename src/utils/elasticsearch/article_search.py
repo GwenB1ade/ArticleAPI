@@ -89,17 +89,11 @@ class AsyncArticleSearch(AsyncBaseSearch):
                         result.append(i)
 
         return result
-    
-    
+
     @classmethod
     async def drop_elastic(cls):
         await async_client.delete_by_query(
-            index = cls.index,
-            body = {
-            "query": {
-                'match_all': {}
-            }
-        }
+            index=cls.index, body={"query": {"match_all": {}}}
         )
 
     @classmethod

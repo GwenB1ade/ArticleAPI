@@ -17,7 +17,7 @@ class UserModel(Base):
     uuid: Mapped[str] = mapped_column(
         UUID(as_uuid=False), default=uuid.uuid4, primary_key=True
     )
-    username: Mapped[str] = mapped_column(unique = True)
+    username: Mapped[str] = mapped_column(unique=True)
     password: Mapped[str]
     email: Mapped[str]
 

@@ -10,7 +10,7 @@ def get_my_articles(token: str) -> list[schemas.ArticleSchema]:
     data = requests.get(f"{BACKEND_URL}/articles/", headers=auth_headers(token))
     if data.status_code != 200:
         return None
-    articles = data.json().get('articles')
+    articles = data.json().get("articles")
     articles_schemas = []
     for article in articles:
         articles_schemas.append(_convert_json_to_article(article))
@@ -56,25 +56,29 @@ def delete_article(token, uuid: str):
 def search_articles(text: str) -> list[schemas.ArticleDocumentSchema]:
     json = requests.post(f"{BACKEND_URL}/articles/search?text={text}").json()
     articles = []
-    if json.get('articles_docs'):
-        for article in json.get('articles_docs'):
+    if json.get("articles_docs"):
+        for article in json.get("articles_docs"):
             articles.append(_convert_json_to_article(article, is_docs=True))
 
     return articles
 
 
 def like_article(token: str, article_uuid: str):
-    response = requests.post(f'{BACKEND_URL}/articles/like/{article_uuid}', headers = auth_headers(token))
-    return response.json().get('detail')
+    response = requests.post(
+        f"{BACKEND_URL}/articles/like/{article_uuid}", headers=auth_headers(token)
+    )
+    return response.json().get("detail")
 
 
 def get_my_likes(token: str):
-    response = requests.get(f'{BACKEND_URL}/articles/likes/', headers = auth_headers(token))
+    response = requests.get(
+        f"{BACKEND_URL}/articles/likes/", headers=auth_headers(token)
+    )
     articles = []
-    if response.json().get('articles'):
-        for art in response.json().get('articles'):
+    if response.json().get("articles"):
+        for art in response.json().get("articles"):
             articles.append(_convert_json_to_article(art))
-    
+
     return articles
 
 

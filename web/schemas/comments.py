@@ -8,6 +8,7 @@ class CommentReplySchema(BaseModel):
     author_uuid: str
     comment_uuid: str
 
+
 class CommentSchema(BaseModel):
     uuid: str
     body: str

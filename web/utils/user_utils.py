@@ -1,5 +1,6 @@
 import streamlit as st
 
+
 def auth_headers(token: str):
     headers = {"Authorization": f"Bearer {token}"}
 
@@ -7,6 +8,4 @@ def auth_headers(token: str):
 
 
 def not_auth():
-    st.error('You are not logged in')
-    
-    
+    st.error("You are not logged in")

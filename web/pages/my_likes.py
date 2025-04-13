@@ -8,7 +8,7 @@ from utils.user_utils import not_auth
 
 
 def my_likes():
-    st.title('My likes')
+    st.title("My likes")
     token = users_api.get_token_from_session()
     if token:
         articles = articles_api.get_my_likes(token)
@@ -24,9 +24,9 @@ def my_likes():
             st.dataframe(df)
         else:
             st.error("You don't have a single liked article.")
-    
+
     else:
         not_auth()
-        
+
 
 my_likes()

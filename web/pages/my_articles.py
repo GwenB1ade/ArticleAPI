@@ -8,7 +8,7 @@ from utils.user_utils import not_auth
 
 
 def my_articles():
-    st.title('My Articles')
+    st.title("My Articles")
     token = users_api.get_token_from_session()
     if token:
         articles = articles_api.get_my_articles(token)

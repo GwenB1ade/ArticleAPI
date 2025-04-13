@@ -2,10 +2,13 @@ import streamlit as st
 
 
 def home():
-    st.title('🏠 Home')
-    st.write('This is a UI created using Streamlit. You can use this UI to test the API functionality.')
-    
-    st.markdown("""# ArticleAPI
+    st.title("🏠 Home")
+    st.write(
+        "This is a UI created using Streamlit. You can use this UI to test the API functionality."
+    )
+
+    st.markdown(
+        """# ArticleAPI
 
 - [Project description](#project-description)
 - [How to launch a project](#how-to-launch-a-project)
@@ -157,7 +160,8 @@ In the future, I would like to change/add the following:
 - Optimized database queries. Optimized article search in ElasticSearch
 
                 
-                """)
-    
+                """
+    )
+
 
 home()

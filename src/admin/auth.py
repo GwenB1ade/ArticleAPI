@@ -68,7 +68,7 @@ class UsernameAndPasswordProvider(AuthProvider):
         return AdminConfig()
 
     def get_admin_user(self, request: Request) -> AdminUser:
-        return AdminUser(username=request.session['username'])
+        return AdminUser(username=request.session["username"])
 
     async def logout(self, request: Request, response: Response) -> Response:
         request.session.clear()

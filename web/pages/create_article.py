@@ -8,7 +8,7 @@ from utils.user_utils import not_auth
 
 def create_article():
     token = users_api.get_token_from_session()
-    st.title('Create Article')
+    st.title("Create Article")
     if token:
         title = st.text_input("Title")
         body = st.text_area("Body")

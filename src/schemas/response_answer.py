@@ -20,5 +20,6 @@ class ResponseArticlesList(BaseModel):
 class ResponseArticlesDocsList(BaseModel):
     articles_docs: list[ArticleDocumentSchema]
 
+
 class ResponseCommentsList(BaseModel):
     comments: list[CommentSchema]
