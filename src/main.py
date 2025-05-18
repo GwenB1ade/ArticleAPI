@@ -82,18 +82,10 @@ cli = typer.Typer()
 
 
 @cli.command()
-def run(https: bool = False):
+def run():
     """Запускает основное FastAPI приложение с поддержкой GraphQL"""
     create_db()
-    if https:
-        uvicorn.run(
-            "main:app",
-            reload=True,
-            ssl_keyfile="../key.pem",
-            ssl_certfile="../cert.pem",
-        )
-    else:
-        uvicorn.run("main:app", reload=True)
+    uvicorn.run("main:app", reload=True)
 
 
 @cli.command()

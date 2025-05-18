@@ -1,0 +1,12 @@
+admin
+api
+config
+database
+dependencies
+exceptions
+main
+migrations
+models
+schemas
+service
+utils

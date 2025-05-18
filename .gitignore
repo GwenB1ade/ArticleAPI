@@ -1,5 +1,4 @@
 .venv
-.env
 /src/migrations
 .idea
 .vscode
